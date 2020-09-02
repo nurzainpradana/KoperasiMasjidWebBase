@@ -17,9 +17,9 @@
 <br>
 <br>
 @foreach($product as $p)
-<form action="{{route('product.update') }}" method="post"> 
+<form action="{{ route('product.update') }}" method="post"> 
     {{ csrf_field()}}
-    Id Product <input type="text" name="id" required="required" value=" {{ $p->id_products }}"> <br>
+    Id Product <input type="text" name="id_products" required="required" value=" {{ $p->id_products }}"> <br>
     Nama Product <input type="text" name="name" required="required" value=" {{ $p->name }}"> <br>
     Harga <input type="number" name="price" required="required" value="{{ $p->price }}"> <br>
     Unit <input type="number" name="unit" required="required" value="{{ $p->unit }}"> <br>

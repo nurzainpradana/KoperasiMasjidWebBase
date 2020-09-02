@@ -40,8 +40,8 @@
             <td>
                 
                 
-                <a href="{{ route('product.edit', ['id' =>$p->id_products ]) }}">Edit</a>
-                <a href="{{ route('product.hapus') }}">Hapus</a>
+                <a href="{{ route('product.edit', ['id_products' => $p->id_products ]) }}">Edit</a>
+                <a href="{{ route('product.delete', ['id_products' => $p->id_products ]) }}">Hapus</a>
             </td>
         </tr>
     @endforeach
