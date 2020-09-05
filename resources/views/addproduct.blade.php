@@ -20,7 +20,7 @@
     {{ csrf_field()}}
     Nama Product <input type="text" name="name" required="required"> <br>
     Harga <input type="number" name="price" required="required"> <br>
-    Unit <input type="number" name="unit" required="required"> <br>
+    Status <input type="text" name="status" required="required"> <br>
     Description <input type="text" name="description" required="required"> <br>
     Image <input type="text" name="image" required="required"> <br>
     Kategori <input type="number" name="id_category" required="required"> <br>

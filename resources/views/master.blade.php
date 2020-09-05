@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koperasi Masjid</title>
+
+    <style type="text/css">
+    .pagination li{
+        float: left;
+        list-style-type: none;
+        margin: 5px;
+    }
+</style>
+
 </head>
 <body>
 

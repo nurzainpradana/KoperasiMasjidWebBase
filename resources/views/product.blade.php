@@ -21,7 +21,7 @@
         <th>Id Product</th>
         <th>Nama Product</th>
         <th>Harga</th>
-        <th>Unit</th>
+        <th>Status</th>
         <th>Description</th>
         <th>Image</th>
         <th>Kategory</th>
@@ -33,10 +33,10 @@
             <td>{{ $p->id_products }}</td>
             <td>{{ $p->name }}</td>
             <td>{{ $p->price }}</td>
-            <td>{{ $p->unit }}</td>
+            <td>{{ $p->status }}</td>
             <td>{{ $p->description }}</td>
             <td><img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px">{{  url('/image/product/'.$p->image) }}</td>
-            <td>{{ $p->id_category }}</td>
+            <td>{{ $p->category_name }}</td>
             <td>
                 
                 
@@ -46,6 +46,15 @@
         </tr>
     @endforeach
 </table>
+
+Halaman : {{ $product->currentPage() }} <br/>
+	Jumlah Data : {{ $product->total() }} <br/>
+	Data Per Halaman : {{ $product->perPage() }} <br/>
+
+
+    {{ $product->links() }}
+
+    <br>
 
 
 

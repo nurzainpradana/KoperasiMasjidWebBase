@@ -12,7 +12,7 @@
 <style type="text/css">
     .pagination li{
         float: left;
-        list-stylr-type: none;
+        list-style-type: none;
         margin: 5px;
     }
 </style>

@@ -22,7 +22,7 @@
     Id Product <input type="text" name="id_products" required="required" value=" {{ $p->id_products }}"> <br>
     Nama Product <input type="text" name="name" required="required" value=" {{ $p->name }}"> <br>
     Harga <input type="number" name="price" required="required" value="{{ $p->price }}"> <br>
-    Unit <input type="number" name="unit" required="required" value="{{ $p->unit }}"> <br>
+    Status <input type="text" name="status" required="required" value="{{ $p->status }}"> <br>
     Description <input type="text" name="description" required="required" value=" {{ $p->description }}"> <br>
     <img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px"> <br>
     Image <input type="text" name="image" required="required" value=" {{ $p->image }}"> <br>
