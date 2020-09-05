@@ -65,14 +65,32 @@ class ProductController extends Controller{
     }
 
     public function update(Request $request){
-        $product = DB::table('tb_product')->where('id_products', $request->id_products)->update([
+        /*$product = DB::table('tb_product')->where('id_products', $request->id_products)->update([
             'name' => $request->name,
             'price' => $request->price,
             'unit' => $request->unit,
             'description' => $request->description,
             'image' => $request->image,
             'id_category' => $request->id_category,
+        ]); */
+
+        $this->validate($request,[
+            'name' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'id_category' => 'required',
         ]);
+
+        $product = Product::where('id_products', '=', $request->id_products)->first();
+        $product->name = $request -> name;
+        $product->price = $request->price; 
+        $product->status = $request->status;
+        $product->description = $request->description;
+        $product->image = $request->image;
+        $product->id_category = $request->id_category;
+        $product->save();
 
         return redirect()->route('product');
     }
