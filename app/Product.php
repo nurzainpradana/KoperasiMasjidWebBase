@@ -12,4 +12,8 @@ class Product extends Model
 
     //Mass Asignment
     protected $fillable = ['name','price','status','description','image','id_category'];
+
+    public function category() {
+        return $this->hasMany('App\Category', 'id_category');
+    }
 }

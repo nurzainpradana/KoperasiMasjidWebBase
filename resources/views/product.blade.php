@@ -36,7 +36,10 @@
             <td>{{ $p->status }}</td>
             <td>{{ $p->description }}</td>
             <td><img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px">{{  url('/image/product/'.$p->image) }}</td>
-            <td>{{ $p->category_name }}</td>
+            
+            <td>{{ $p->category_name}}</td>
+            
+            
             <td>
                 
                 

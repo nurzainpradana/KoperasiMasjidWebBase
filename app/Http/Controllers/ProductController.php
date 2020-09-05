@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\Category;
 
 class ProductController extends Controller{
     public function index(){
@@ -15,12 +16,15 @@ class ProductController extends Controller{
         ->leftJoin('tb_category as c', 'tb_product.id_category', 'c.id_category')
         ->select('tb_product.id_products', 'tb_product.name', 'tb_product.price','tb_product.status','tb_product.description', 'tb_product.image','c.name as category_name')
         ->paginate(10);
+        
+        //$product = Product::paginate(10);
 
         return view('product',['product' => $product]);
     }
 
     public function tambah(){
-        return view('addproduct');
+        $category = Category::get();
+        return view('addproduct', ['category' => $category]);
     }
 
     public function edit($id_products){
@@ -29,7 +33,9 @@ class ProductController extends Controller{
         //$product = Product::where('id_product','=',$id_products)->get();
         $product = Product::where('id_products','=',$id_products)->get();
 
-        return view('editproduct', ['product' => $product ]);
+        $category = Category::get();
+
+        return view('editproduct', ['product' => $product, 'category' => $category]);
     }
 
     public function simpan(Request $request){
@@ -97,8 +103,9 @@ class ProductController extends Controller{
 
     public function delete($id_products){
         //Mengambil data product berdasarkan id yang dipilih
-        $product = DB::table('tb_product')->where('id_products',$id_products)->delete();
-
+        //$product = DB::table('tb_product')->where('id_products',$id_products)->delete();
+        $product = Product::find($id_products);
+        $product->delete();
         return redirect()->route('product');
     }
 
