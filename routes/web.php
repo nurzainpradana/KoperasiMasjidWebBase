@@ -23,6 +23,7 @@ Route::get('/product/edit/{id_products}','ProductController@edit')->name('produc
 Route::get('/product/delete/{id_products}','ProductController@delete')->name('product.delete');
 Route::post('/product/simpan','ProductController@simpan')->name('product.simpan');
 Route::post('/product/update','ProductController@update')->name('product.update');
+Route::get('/product/cari', 'ProductController@cari')->name('product.cari');
 
 
 Route::get('/user','UserController@index')->name('user');
@@ -31,4 +32,7 @@ Route::get('/user/delete/{id_user}','UserController@delete')->name('user.delete'
 
 Route::get('/transaction','TransactionController@index')->name('transaction');
 Route::get('/transaction/detail','TransactionController@detail')->name('transaction.detail');
+
+Route::get('/upload','UploadController@upload')->name('upload');
+Route::get('/upload/proses','UploadController@proses_upload')->name('upload.proses');
 

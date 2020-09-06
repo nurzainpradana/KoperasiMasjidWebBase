@@ -11,9 +11,23 @@
 
 <h3>DATA PRODUK</h3>
 
+@if(count($errors) > 0)
+				<div class="alert alert-danger">
+					@foreach ($errors->all() as $error)
+					{{ $error }} <br/>
+					@endforeach
+				</div>
+@endif
+
 <a href="{{ route('product.tambah') }}"> + Tambah Product Baru</a>
 
 <br>
+<p>Cari Data Product</p> <br>
+<form action="{{ route('product.cari') }}" method="GET">
+    <input type="text" name="cari" placeholder="Cari Product ...">
+    <input type="submit" value="Cari">
+</form>
+
 <br>
 
 <table border="1">
@@ -50,13 +64,12 @@
     @endforeach
 </table>
 
-Halaman : {{ $product->currentPage() }} <br/>
+    Halaman : {{ $product->currentPage() }} <br/>
 	Jumlah Data : {{ $product->total() }} <br/>
 	Data Per Halaman : {{ $product->perPage() }} <br/>
 
 
     {{ $product->links() }}
-
     <br>
 
 

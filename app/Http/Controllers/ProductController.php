@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Category;
+use Image;
 
 class ProductController extends Controller{
     public function index(){
@@ -49,13 +50,33 @@ class ProductController extends Controller{
         ]);
         */
 
+        
+        //Menyimpan data file yang diupload ke variable $_FILES
+       //$file = $request->file('file');
+
+        //isi dengan nama folder tempat kemana file di upload
+       //$tujuan_upload = '/image/product';
+
+        //upload file
+       //$file->move($tujuan_upload, $file->getClientOriginalName());
+
+       $image = $request->file('file');
+        //$input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+     
+        $destinationPath = public_path('/image/product');
+        $img = Image::make($image->getRealPath());
+        $img->resize(100, 100, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$image->getClientOriginalExtension());
+        $image->move($destinationPath,$image->getClientOriginalExtension());
+
+
         $this->validate($request,[
             'name' => 'required',
             'price' => 'required',
             'status' => 'required',
             'description' => 'required',
-            'image' => 'required',
-            'id_category' => 'required',
+            'id_category' => 'required'
         ]);
 
         Product::create([
@@ -63,9 +84,10 @@ class ProductController extends Controller{
             'price' => $request->price, 
             'status' => $request->status,
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $image->getClientOriginalName(),
             'id_category' => $request->id_category,
         ]);
+
 
         return redirect()->route('product');
     }
@@ -107,6 +129,61 @@ class ProductController extends Controller{
         $product = Product::find($id_products);
         $product->delete();
         return redirect()->route('product');
+    }
+
+    public function cari(Request $request){
+        //Menanangkap data yang dicari
+        $cari = $request->cari;
+
+        //mengambil data dari tabel sesuai pencarian
+        //$product = Product::where('name','LIKE','%'.$cari.'%')->get();
+        //$product = DB::table('tb_product')->where('name','LIKE','%'.$cari.'%')->paginate(10);
+
+        $product = DB::table('tb_product')
+        ->leftJoin('tb_category as c', 'tb_product.id_category', 'c.id_category')
+        ->select('tb_product.id_products', 'tb_product.name', 'tb_product.price','tb_product.status','tb_product.description', 'tb_product.image','c.name as category_name')
+        ->where('tb_product.name','LIKE','%'.$cari.'%')
+        ->paginate(10);
+
+        //return redirect()->route('product', ['product' => $product]);
+        return view('product',['product' => $product]);
+    }
+
+    //UPLOAD GAMBAR
+
+    public function proses_upload(Request $request){
+        $this->validate($request, [
+            'file' => 'required',
+            'keterangan' => 'required'
+        ]);
+
+        //Menyimpan data file yang diupload ke variable $_FILES
+        $file = $request->file('file');
+
+        //nama file
+        echo 'File Name : '.$file->getClientOriginalName();
+        echo '<br>';
+
+        //ekstensi file
+        echo 'File Extension : '.$file->getRealPath();
+        echo '<br>';
+
+        //real path
+        echo 'File Real Path : '.$file->getRealPath();
+        echo '<br>';
+
+        //ukuran file
+        echo 'File Size : '.$file->getSize();
+        echo '<br>';
+
+        //Tipe Mine
+        echo 'File Mime Type : '.$file->getMimeType();
+        
+        //isi dengan nama folder tempat kemana file di upload
+        $tujuan_upload = 'image/product';
+
+        //upload file
+        $file->move($tujuan_upload, $file->getClientOriginalName());
     }
 
 }
