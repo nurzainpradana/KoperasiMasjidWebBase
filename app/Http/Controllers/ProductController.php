@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use Image;
+use File;
 
 class ProductController extends Controller{
     public function index(){
@@ -40,37 +41,39 @@ class ProductController extends Controller{
     }
 
     public function simpan(Request $request){
-        /*$product = DB::table('tb_product')->insert([
+       $image = $request->file('file');
+
+        $destinationPath = public_path('/image/product');
+        if($image != null) {
+            $img = Image::make($image->getRealPath());
+            $imglink = rand().$image->getClientOriginalName();
+    
+            $img->resize(360, 360, function ($constraint) {$constraint->aspectRatio();})->save($destinationPath.'/'.$imglink);
+            $image->move($destinationPath,rand().$imglink);
+        } else { $imglink = ''; }
+
+        $this->validate($request,[
+            'name' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'id_category' => 'required',
+            'description' => 'required'
+        ]);
+
+        Product::create([
             'name' => $request->name,
             'price' => $request->price, 
-            'unit' => $request->unit,
+            'status' => $request->status,
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $imglink,
             'id_category' => $request->id_category,
         ]);
-        */
 
-        
-        //Menyimpan data file yang diupload ke variable $_FILES
-       //$file = $request->file('file');
+        return redirect()->route('product');
+    }
 
-        //isi dengan nama folder tempat kemana file di upload
-       //$tujuan_upload = '/image/product';
-
-        //upload file
-       //$file->move($tujuan_upload, $file->getClientOriginalName());
-
-       $image = $request->file('file');
-        //$input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-     
-        $destinationPath = public_path('/image/product');
-        $img = Image::make($image->getRealPath());
-        $img->resize(100, 100, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$image->getClientOriginalExtension());
-        $image->move($destinationPath,$image->getClientOriginalExtension());
-
-
+    public function update(Request $request){
+       
         $this->validate($request,[
             'name' => 'required',
             'price' => 'required',
@@ -79,46 +82,62 @@ class ProductController extends Controller{
             'id_category' => 'required'
         ]);
 
-        Product::create([
-            'name' => $request->name,
-            'price' => $request->price, 
-            'status' => $request->status,
-            'description' => $request->description,
-            'image' => $image->getClientOriginalName(),
-            'id_category' => $request->id_category,
-        ]);
+        $oldimage = $request->image;
+        $image = $request->file('file');
+        //$input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        
 
+        if($image != null){
+            $imagefile = rand().$image->getClientOriginalName();
+        } else {
+            $imagefile = "";
+        }
 
-        return redirect()->route('product');
-    }
-
-    public function update(Request $request){
-        /*$product = DB::table('tb_product')->where('id_products', $request->id_products)->update([
+        $update = DB::table('tb_product')->where('id_products',$request->id_products)->update([
             'name' => $request->name,
             'price' => $request->price,
-            'unit' => $request->unit,
+            'status' => $request->status,
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $imagefile,
             'id_category' => $request->id_category,
-        ]); */
-
-        $this->validate($request,[
-            'name' => 'required',
-            'price' => 'required',
-            'status' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-            'id_category' => 'required',
         ]);
 
-        $product = Product::where('id_products', '=', $request->id_products)->first();
-        $product->name = $request -> name;
+
+        /*$product = Product::find($request->id_products)->first();
+        $product->name = $request->name;
         $product->price = $request->price; 
         $product->status = $request->status;
         $product->description = $request->description;
-        $product->image = $request->image;
+        if($image != null){
+            $product->image = $image->getClientOrginalExtension();
+        } else {
+            $product->image = $request->image;
+        }
         $product->id_category = $request->id_category;
         $product->save();
+        */
+
+        if($image != null){
+            $destinationPath = public_path('/image/product');
+        $img = Image::make($image->getRealPath());
+        $img->resize(360, 360, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$imagefile);
+        $image->move($destinationPath,$imagefile);
+        }
+
+        if($oldimage != null){
+            File::delete('image/product/'.$oldimage);
+        }
+
+        /*if($image != null){
+            $imagefile = $image->getClientOrginalExtension();
+        } else {
+            $imagefile = $request->image;
+        }
+
+         
+        */
 
         return redirect()->route('product');
     }
@@ -127,7 +146,11 @@ class ProductController extends Controller{
         //Mengambil data product berdasarkan id yang dipilih
         //$product = DB::table('tb_product')->where('id_products',$id_products)->delete();
         $product = Product::find($id_products);
+
+        File::delete('image/product/'.$product->image);
         $product->delete();
+
+
         return redirect()->route('product');
     }
 

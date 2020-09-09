@@ -9,13 +9,6 @@
 <!-- cara penulisan isi section yang panjang -->
 @section('konten')
 
-<style type="text/css">
-    .pagination li{
-        float: left;
-        list-style-type: none;
-        margin: 5px;
-    }
-</style>
 
 <h3>DATA USER</h3>
 

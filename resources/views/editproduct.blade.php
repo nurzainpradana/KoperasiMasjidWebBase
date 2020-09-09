@@ -9,6 +9,14 @@
 <!-- cara penulisan isi section yang panjang -->
 @section('konten')
 
+@if(count($errors) > 0)
+				<div class="alert alert-danger">
+					@foreach ($errors->all() as $error)
+					{{ $error }} <br/>
+					@endforeach
+				</div>
+@endif
+
 <h3>EDIT DATA PRODUCT</h3>
 
 <br>
@@ -17,10 +25,10 @@
 <br>
 <br>
 @foreach($product as $p)
-<form action="{{ route('product.update') }}" method="post"> 
+<form action="{{ route('product.update') }}" method="post" enctype="multipart/form-data"> 
     {{ csrf_field()}}
-    Id Product <input type="text" name="id_products" required="required" value=" {{ $p->id_products }}"> <br>
-    Nama Product <input type="text" name="name" required="required" value=" {{ $p->name }}"> <br>
+    Id Product <input type="text" name="id_products" required="required" value=" {{ $p->id_products }}" type="hidden"> <br>
+    Nama Product <input type="text" name="name" required="required" value="{{ $p->name }}"> <br>
     Harga <input type="number" name="price" required="required" value="{{ $p->price }}"> <br>
 
     <div class="form-group row">
@@ -49,7 +57,14 @@
 
     Description <input type="text" name="description" required="required" value=" {{ $p->description }}"> <br>
     <img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px"> <br>
-    Image <input type="text" name="image" required="required" value=" {{ $p->image }}"> <br>
+    <input type="show" type="text" name="image" required="required" value=" {{ $p->image }}">
+    
+    <div class="form-group">
+        Gambar <br>
+        <input type="file" name="file">
+    </div>
+    <br>
+    <br>
     <input type="submit" value="Simpan Data">
 
 </form>
