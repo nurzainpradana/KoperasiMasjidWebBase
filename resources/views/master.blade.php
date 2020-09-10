@@ -42,19 +42,19 @@
       <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('product') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-cubes"></i>
           <span>Produk</span></a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('user') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fa fa-fw fa-user-circle"></i>
           <span>User</span></a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('transaction') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Transaction</span></a>
       </li>
 
