@@ -64,7 +64,7 @@
                           @endif
                         </td>
                         <td>{{ $p->description }}</td>
-                        <td><img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px"></td>
+                        <td ><img class="img-responsive img-thumbnail" src="{{ url('/image/product/'.$p->image) }}" width="300px"></td>
                         
                         <td>{{ $p->category_name}}</td>
                         

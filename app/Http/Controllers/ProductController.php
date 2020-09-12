@@ -11,6 +11,9 @@ use App\Category;
 use Image;
 use File;
 
+
+use Session;
+
 class ProductController extends Controller{
     public function index(){
         //Mengambil data dari tabel product
@@ -60,7 +63,7 @@ class ProductController extends Controller{
             'description' => 'required'
         ]);
 
-        Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'price' => $request->price, 
             'status' => $request->status,
@@ -68,6 +71,12 @@ class ProductController extends Controller{
             'image' => $imglink,
             'id_category' => $request->id_category,
         ]);
+
+        if($product) {
+            Session::flash('sukses','Berhasil Menambahkan Data'); 
+        } else {
+            Session::flash('gagal','Gagal Menambahkan Data'); 
+        }
 
         return redirect()->route('product');
     }
@@ -130,6 +139,12 @@ class ProductController extends Controller{
             File::delete('image/product/'.$oldimage);
         }
 
+        if($update) {
+            Session::flash('sukses','Berhasil Mengupdate Data'); 
+        } else {
+            Session::flash('gagal','Gagal Mengupdate Data'); 
+        }
+
         /*if($image != null){
             $imagefile = $image->getClientOrginalExtension();
         } else {
@@ -148,8 +163,13 @@ class ProductController extends Controller{
         $product = Product::find($id_products);
 
         File::delete('image/product/'.$product->image);
-        $product->delete();
+        $deleteproduct = $product->delete();
 
+        if($deleteproduct) {
+            Session::flash('sukses','Berhasil Menghapus Data'); 
+        } else {
+            Session::flash('gagal','Gagal Menghapus Data'); 
+        }
 
         return redirect()->route('product');
     }

@@ -29,9 +29,11 @@ Route::get('/product/cari', 'ProductController@cari')->name('product.cari');
 Route::get('/user','UserController@index')->name('user');
 Route::get('/user/reset/{id_user}','UserController@reset')->name('user.reset');
 Route::get('/user/delete/{id_user}','UserController@delete')->name('user.delete');
+Route::get('/user/cari', 'UserController@cari')->name('user.cari');
 
 Route::get('/transaction','TransactionController@index')->name('transaction');
-Route::get('/transaction/detail','TransactionController@detail')->name('transaction.detail');
+Route::get('/transaction/detail/{id_transaction}','TransactionController@detail')->name('transaction.detail');
+Route::post('/transaction/update','TransactionController@update')->name('detail.update');
 
 Route::get('/upload','UploadController@upload')->name('upload');
 Route::get('/upload/proses','UploadController@proses_upload')->name('upload.proses');

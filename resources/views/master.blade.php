@@ -17,9 +17,15 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+  <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+  <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
 
 </head>
 
@@ -73,12 +79,6 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <form class="form-inline">
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-              <i class="fa fa-bars"></i>
-            </button>
-          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -93,6 +93,35 @@
         <div class="container-fluid">
 
         <!-- CONTENT -->
+        @if(count($errors) > 0)
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                            {{ $error }} <br/>
+                            @endforeach
+                        </div>
+                @endif
+
+                @if ($message = Session::get('sukses'))
+				<div class="alert alert-success alert-block">
+					<button type="button" class="close" data-dismiss="alert">×</button> 
+					<strong>{{ $message }}</strong>
+				</div>
+				@endif
+ 
+				@if ($message = Session::get('gagal'))
+				<div class="alert alert-danger alert-block">
+					<button type="button" class="close" data-dismiss="alert">×</button> 
+					<strong>{{ $message }}</strong>
+				</div>
+				@endif
+ 
+				@if ($message = Session::get('peringatan'))
+				<div class="alert alert-warning alert-block">
+					<button type="button" class="close" data-dismiss="alert">×</button> 
+					<strong>{{ $message }}</strong>
+				</div>
+				@endif
+        
         @yield('konten')
         <!-- END CONTENT -->
 
