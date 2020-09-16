@@ -22,7 +22,7 @@
 
             <form action="{{ route('user.cari') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
-                    <input type="text" name="cari" class="form-control bg-light border-1 small" placeholder="Cari User ...">
+                    <input type="text" name="cari" required="required" class="form-control bg-light border-1 small" placeholder="Cari User ...">
                     <div class="input-group-append">
                         <input type="submit" value="Cari" class="btn btn-danger">
                     </div>

@@ -175,8 +175,13 @@ class ProductController extends Controller{
     }
 
     public function cari(Request $request){
+        $this->validate($request,[
+            'car' => 'required'
+        ]);
         //Menanangkap data yang dicari
         $cari = $request->cari;
+
+        
 
         //mengambil data dari tabel sesuai pencarian
         //$product = Product::where('name','LIKE','%'.$cari.'%')->get();
@@ -227,6 +232,12 @@ class ProductController extends Controller{
 
         //upload file
         $file->move($tujuan_upload, $file->getClientOriginalName());
+    }
+
+    public function checkLogin(){
+        if(session('berhasil_login')){
+            return redirect()->route('login');
+        }
     }
 
 }

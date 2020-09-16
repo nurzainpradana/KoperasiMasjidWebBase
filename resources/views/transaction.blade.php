@@ -18,16 +18,25 @@
               <div class="table-responsive">
             
 
-            <form action="{{ route('user.cari') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <form action="{{ route('transaction.cari') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
-                    <input type="text" name="cari" class="form-control bg-light border-1 small" placeholder="Cari User ...">
+                    <input type="text" required="required" name="start_date" class="form-control bg-light border-1 small mr-3" placeholder="Start Date ...">
+                    <input type="text" required="required" name="end_date" class="form-control bg-light border-1 small mr-2" placeholder="End Date ...">
                     <div class="input-group-append">
-                        <input type="submit" value="Cari" class="btn btn-danger">
+                        <input type="submit" value="Filter" class="btn btn-danger">
                     </div>
                 </div>
              </form>
-          <br>
-          <br>
+             <br>
+             @if($status == 'hasil_pencarian')
+             <a href="{{ route('transaction.exporttoexcel', ['start_date' => $start_date, 'end_date' => $end_date]) }}" class = "btn btn-primary mt-3 ml-3" >EXPORT TO EXCEL</a>
+             <br>
+             <br>
+             <h4>Transaksi dari tanggal {{ $start_date }} sampai tanggal {{ $end_date }} </h4>
+            <br>
+
+             @endif
+      
 
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
