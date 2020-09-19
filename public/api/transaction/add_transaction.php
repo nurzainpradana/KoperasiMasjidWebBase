@@ -3,14 +3,15 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-		//mendapatkan nilai variabel
+        //mendapatkan nilai variabel
+        $id_transaction = $_POST['id_transaction'];
 		$id_products = $_POST['id_products'];	
-		$id_user = $_POST['id_user'];
+		$harga_satuan = $_POST['harga_satuan'];
         $quantity = $_POST['quantity'];
-		$id_cart = rand(111111,999999);
+        $subtotal = $_POST['subtotal'];
 
 		//membuat query SQL
-		$sql = "INSERT INTO tb_cart (id_cart, id_products, id_user, quantity) values ('$id_cart', '$id_products', '$id_user', '$quantity');";
+		$sql = "INSERT INTO tb_detail_transaction (id_transaction, id_product, harga_satuan, quantity, subtotal) values ('$id_transaction', '$id_product', '$harga_satuan', '$quantity', $subtotal);";
 
         //eksekusi query database
         $response = array();

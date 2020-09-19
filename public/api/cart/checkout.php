@@ -3,14 +3,17 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-		//mendapatkan nilai variabel
-		$id_products = $_POST['id_products'];	
+        //mendapatkan nilai variabel
+        $id_transaction = $_POST['id_transaction'];
 		$id_user = $_POST['id_user'];
-        $quantity = $_POST['quantity'];
-		$id_cart = rand(111111,999999);
+		$total = $_POST['total'];
+		date_default_timezone_set("Asia/Jakarta");
+		$date_order = date("Y-m-d");
+		$status = "belum diproses";
+
 
 		//membuat query SQL
-		$sql = "INSERT INTO tb_cart (id_cart, id_products, id_user, quantity) values ('$id_cart', '$id_products', '$id_user', '$quantity');";
+		$sql = "INSERT INTO tb_transaction (id_transaction, date_order, id_user, total_order, status) values ($id_transaction, '$date_order', '$id_user', '$total', '$status');";
 
         //eksekusi query database
         $response = array();

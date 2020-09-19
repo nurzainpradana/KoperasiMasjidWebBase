@@ -77,7 +77,11 @@
                             </select>
                     </div>
 
-                    <img src="{{ url('/image/product/'.$p->image) }}" width="150px" height="150px"> <br>
+                    <img src="{{ url('/image/product/'.$p->image) }}" name="image"  id="image" width="150px" height="150px"> <br>
+                    <div class="form-group">
+                        <label for="image">Old Image</label>
+                        <input class="form-control" readonly type="text" name="image" required="required" value="{{ $p->image }}" >
+                    </div>
 
                     <div class="form-group">
                         <label for="file">File Gambar</label>

@@ -102,14 +102,26 @@ class ProductController extends Controller{
             $imagefile = "";
         }
 
-        $update = DB::table('tb_product')->where('id_products',$request->id_products)->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'status' => $request->status,
-            'description' => $request->description,
-            'image' => $imagefile,
-            'id_category' => $request->id_category,
-        ]);
+        if($oldimage!=null){
+            $update = DB::table('tb_product')->where('id_products',$request->id_products)->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'status' => $request->status,
+                'description' => $request->description,
+                'id_category' => $request->id_category,
+            ]);
+        } else {
+            $update = DB::table('tb_product')->where('id_products',$request->id_products)->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'status' => $request->status,
+                'description' => $request->description,
+                'image' => $imagefile,
+                'id_category' => $request->id_category,
+            ]);
+        }
+
+        
 
 
         /*$product = Product::find($request->id_products)->first();

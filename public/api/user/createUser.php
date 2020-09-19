@@ -4,6 +4,7 @@
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		//mendapatkan nilai variabel
+		$id_user = $_POST['id_user'];
 		$name = $_POST['name'];	
 		$no_phone = $_POST['no_phone'];
 		$username = $_POST['username'];
@@ -13,7 +14,7 @@
 		$date_of_birth = $_POST['date_of_birth'];
 		$date = date('Y-m-d', strtotime($date_of_birth));
 		$photo_profile = $_POST['photo_profile'];
-		$id_user = rand(111111,999999);
+		//$id_user = rand(111111,999999);
 
 		//membuat query SQL
 		$sql = "INSERT INTO tb_user (id_user, name, no_phone, username, password, email, address, date_of_birth, photo_profile) values ('$id_user','$name','$no_phone','$username','$password','$email','$address','$date','$photo_profile')";
